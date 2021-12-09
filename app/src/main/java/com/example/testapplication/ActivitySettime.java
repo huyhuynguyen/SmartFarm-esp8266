@@ -1,14 +1,28 @@
 package com.example.testapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ActivitySettime extends AppCompatActivity {
 
@@ -68,9 +82,31 @@ public class ActivitySettime extends AppCompatActivity {
 
         // Open main view
         btnDoneSave.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                turnParentActivity(getIntent().getStringExtra("Device"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    LocalDate currentDate = LocalDate.now();
+                    String timeStartStr = currentDate + " " + timeStartText.getText();
+                    String timeEndStr = currentDate + " " + timeEndText.getText();
+                    Date start = (Date)simpleDateFormat.parse(timeStartStr);
+                    Date end = (Date) simpleDateFormat.parse(timeEndStr);
+                    if (end.compareTo(start) < 0) {
+                        showToast();
+                    }
+                    else {
+                        DatabaseReference refStart = FirebaseDatabase.getInstance().getReference("timeStartPump");;
+                        DatabaseReference refEnd = FirebaseDatabase.getInstance().getReference("timeEndPump");
+                        if (deviceTitle.getText().toString().equals("Light time")) {
+                            refStart = FirebaseDatabase.getInstance().getReference("timeStartLight");
+                            refEnd = FirebaseDatabase.getInstance().getReference("timeEndLight");
+                        }
+                        turnParentActivity(refStart, refEnd);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -78,11 +114,16 @@ public class ActivitySettime extends AppCompatActivity {
     /*
         Save data and go to parent activity
      */
-    public void turnParentActivity(String device) {
+    public void turnParentActivity(DatabaseReference refStart, DatabaseReference refEnd) {
+        refStart.setValue((String) timeStartText.getText());
+        refEnd.setValue((String) timeEndText.getText());
         Intent intent = new Intent(ActivitySettime.this, MainActivity.class);
-        intent.putExtra("Start", (String) timeStartText.getText());
-        intent.putExtra("End", (String) timeEndText.getText());
-        intent.putExtra("Device", device);
         startActivity(intent);
+    }
+
+    public void showToast() {
+        Toast toast =  Toast.makeText(ActivitySettime.this, "Wrong end time!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP , 20, 30);
+        toast.show();
     }
 }
