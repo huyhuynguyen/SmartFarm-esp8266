@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -12,8 +14,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +45,7 @@ public class MainActivityControllDevice extends AppCompatActivity {
     private Button  btnPump, btnLight, btnServo ,btnSettingTimePump, btnSettingTimeLight, btnSettingTimeServo;
     private String colorOn = "#09FBE5";
     private String colorOff = "#CFD3D2";
+    private Switch switchCompat;
 
     Timer timer;
 
@@ -62,6 +67,7 @@ public class MainActivityControllDevice extends AppCompatActivity {
         lightTimeEnd = (TextView) findViewById(R.id.light_time_end);
         servoTimeStart = (TextView) findViewById(R.id.servo_time_start);
         servoTimeEnd = (TextView) findViewById(R.id.servo_time_end);
+        switchCompat = (Switch) findViewById(R.id.ismanual);
 
         DatabaseReference refTimePumpStart = FirebaseDatabase.getInstance().getReference("timeStartPump");
         DatabaseReference refTimePumpEnd = FirebaseDatabase.getInstance().getReference("timeEndPump");
@@ -234,6 +240,22 @@ public class MainActivityControllDevice extends AppCompatActivity {
                     servoRef.update("status", false);
                     changeStateDown(btnServo, "SERVO OFF");
                 }
+            }
+        });
+
+        // --------------------- Check manual control --------------------- //
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                System.out.println("check switch");
+                boolean isManual = switchCompat.isChecked();
+                btnLight.setClickable(!isManual);
+                btnPump.setClickable(!isManual);
+                btnServo.setClickable(!isManual);
+
+                pumpRef.update("manual", isManual);
+                ledRef.update("manual", isManual);
+                servoRef.update("manual", isManual);
             }
         });
 

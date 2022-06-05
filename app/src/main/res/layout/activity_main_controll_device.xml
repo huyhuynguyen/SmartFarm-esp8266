@@ -104,12 +104,12 @@
         android:layout_width="134dp"
         android:layout_height="59dp"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="76dp"
         android:text="PUMP OFF"
         android:textColor="#100F0F"
         app:backgroundTint="#CFD3D2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/ismanual" />
 
     <Button
         android:id="@+id/btnLight"
@@ -221,5 +221,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/ismanual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="Manual Control"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

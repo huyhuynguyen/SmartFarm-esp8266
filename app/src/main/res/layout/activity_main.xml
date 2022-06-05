@@ -251,7 +251,7 @@
             android:layout_gravity="center"
             android:background="@drawable/circle_shape"
             android:indeterminate="false"
-            android:max="550"
+            android:max="1000"
             android:progress="350"
             android:progressDrawable="@drawable/temperature_progressbar" />
 
