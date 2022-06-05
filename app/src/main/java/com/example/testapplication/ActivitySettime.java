@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,9 +49,13 @@ public class ActivitySettime extends AppCompatActivity {
 
         timePicker.setIs24HourView(is24hView);
 
-        deviceTitle.setText(getIntent().getStringExtra("Device") + " time");
+        String deviceName = getIntent().getStringExtra("Device");
+
+        deviceTitle.setText(deviceName + " time");
         timeStartText.setText(getIntent().getStringExtra("Start"));
         timeEndText.setText(getIntent().getStringExtra("End"));
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Click to change time start and end
         btnSetStart.setOnClickListener(new View.OnClickListener() {
@@ -96,13 +102,8 @@ public class ActivitySettime extends AppCompatActivity {
                         showToast();
                     }
                     else {
-                        DatabaseReference refStart = FirebaseDatabase.getInstance().getReference("timeStartPump");;
-                        DatabaseReference refEnd = FirebaseDatabase.getInstance().getReference("timeEndPump");
-                        if (deviceTitle.getText().toString().equals("Light time")) {
-                            refStart = FirebaseDatabase.getInstance().getReference("timeStartLight");
-                            refEnd = FirebaseDatabase.getInstance().getReference("timeEndLight");
-                        }
-                        turnParentActivity(refStart, refEnd);
+                        final DocumentReference controlDeviceRef = db.collection("controls").document(deviceName.toLowerCase());
+                        turnParentActivity(controlDeviceRef);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -114,10 +115,10 @@ public class ActivitySettime extends AppCompatActivity {
     /*
         Save data and go to parent activity
      */
-    public void turnParentActivity(DatabaseReference refStart, DatabaseReference refEnd) {
-        refStart.setValue((String) timeStartText.getText());
-        refEnd.setValue((String) timeEndText.getText());
-        Intent intent = new Intent(ActivitySettime.this, MainActivity.class);
+    public void turnParentActivity(DocumentReference docRef) {
+        docRef.update("timeStart", (String) timeStartText.getText());
+        docRef.update("timeEnd", (String) timeEndText.getText());
+        Intent intent = new Intent(ActivitySettime.this, MainActivityControllDevice.class);
         startActivity(intent);
     }
 

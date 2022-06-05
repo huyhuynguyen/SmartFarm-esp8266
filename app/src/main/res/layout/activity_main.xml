@@ -6,44 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnSettime_light"
-        android:layout_width="139dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="6dp"
-        android:text="Setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/btnSettime_pump"
-        app:layout_constraintTop_toBottomOf="@+id/light_time_end" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="End at:"
-        app:layout_constraintEnd_toStartOf="@+id/light_time_end"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:text="Start at:"
-        app:layout_constraintEnd_toStartOf="@+id/light_time_start"
-        app:layout_constraintStart_toStartOf="@+id/btnLight"
-        app:layout_constraintTop_toBottomOf="@+id/btnLight" />
-
     <TextView
         android:id="@+id/textView6"
         android:layout_width="273dp"
@@ -60,15 +22,16 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="186dp"
+        android:layout_width="250dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="Soil moisture"
+        android:text="Soil moisture and Light"
         android:textColor="#A82828"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,8 +39,10 @@
         android:id="@+id/frameLayout"
         android:layout_width="180dp"
         android:layout_height="158dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
@@ -113,6 +78,12 @@
             android:layout_marginStart="55dp"
             android:layout_marginLeft="55dp"
             app:srcCompat="@drawable/icons8_wet_48" />
+
+        <TextView
+            android:id="@+id/textViewSoilmoisture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soil moisture" />
     </FrameLayout>
 
     <FrameLayout
@@ -136,7 +107,7 @@
             android:layout_gravity="center"
             android:background="@drawable/circle_shape"
             android:indeterminate="false"
-            android:max="50"
+            android:max="100"
             android:progress="22"
             android:progressDrawable="@drawable/temperature_progressbar" />
 
@@ -216,131 +187,99 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/btnPump"
-        android:layout_width="134dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="10dp"
-        android:text="PUMP OFF"
-        android:textColor="#100F0F"
-        app:backgroundTint="#CFD3D2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnData" />
-
-    <Button
-        android:id="@+id/btnLight"
-        android:layout_width="134dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="10dp"
-        android:text="LIGHT OFF"
-        android:textColor="#000000"
-        app:backgroundTint="#CFD3D2"
-        app:layout_constraintStart_toEndOf="@+id/btnPump"
-        app:layout_constraintTop_toBottomOf="@+id/btnData" />
-
-    <Button
         android:id="@+id/btnData"
         android:layout_width="174dp"
         android:layout_height="50dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="52dp"
         android:text="data (week)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDevicesState" />
 
     <Button
-        android:id="@+id/btnSettime_pump"
-        android:layout_width="139dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="6dp"
-        android:text="Setting"
+        android:id="@+id/btnControlDevice"
+        android:layout_width="174dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:text="Control Devices"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pump_time_end" />
-
-    <TextView
-        android:id="@+id/pump_time_start"
-        android:layout_width="78dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="21:06:00"
-        app:layout_constraintEnd_toEndOf="@+id/btnPump"
-        app:layout_constraintTop_toBottomOf="@+id/btnPump" />
-
-    <TextView
-        android:id="@+id/pump_time_end"
-        android:layout_width="78dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="06:10:00"
-        app:layout_constraintEnd_toEndOf="@+id/pump_time_start"
-        app:layout_constraintStart_toStartOf="@+id/pump_time_start"
-        app:layout_constraintTop_toBottomOf="@+id/pump_time_start" />
-
-    <TextView
-        android:id="@+id/light_time_start"
-        android:layout_width="78dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="17:44:00"
-        app:layout_constraintEnd_toEndOf="@+id/btnLight"
-        app:layout_constraintTop_toBottomOf="@+id/btnLight" />
-
-    <TextView
-        android:id="@+id/light_time_end"
-        android:layout_width="78dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="07:00:00"
-        app:layout_constraintEnd_toEndOf="@+id/light_time_start"
-        app:layout_constraintStart_toStartOf="@+id/light_time_start"
-        app:layout_constraintTop_toBottomOf="@+id/light_time_start" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center"
-        android:text="Start at:"
-        app:layout_constraintEnd_toStartOf="@+id/pump_time_start"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnPump"
-        app:layout_constraintTop_toBottomOf="@+id/btnPump" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="3dp"
-        android:gravity="center"
-        android:text="End at:"
-        app:layout_constraintEnd_toStartOf="@+id/pump_time_end"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/btnData" />
 
     <TextView
         android:id="@+id/tvDevicesState"
         android:layout_width="98dp"
         android:layout_height="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="140dp"
         android:gravity="center"
         android:text="Disconnected"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toEndOf="@+id/tvDevicesState2"
+        app:layout_constraintTop_toTopOf="@+id/tvDevicesState2" />
+
+    <TextView
+        android:id="@+id/tvDevicesState2"
+        android:layout_width="98dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Device status:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout4"
+        android:layout_width="174dp"
+        android:layout_height="156dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints">
+
+        <ProgressBar
+            android:id="@+id/progressBarLight"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:max="550"
+            android:progress="350"
+            android:progressDrawable="@drawable/temperature_progressbar" />
+
+        <TextView
+            android:id="@+id/light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="80dp"
+            android:text="350lux"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="27dp"
+            android:layout_height="31dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            app:srcCompat="@drawable/icons8_sun" />
+
+        <TextView
+            android:id="@+id/textViewLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Light" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

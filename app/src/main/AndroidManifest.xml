@@ -9,8 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApplication">
-        <activity android:name=".ActivitySettime" android:parentActivityName=".MainActivity" android:label="@string/setting_time_view"></activity>
-        <activity android:name=".ActivityStatistics" android:parentActivityName=".MainActivity" android:label="@string/statistic_view" />
+        <activity
+            android:name=".MainActivityControllDevice"
+            android:label="@string/control_device"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ActivitySettime"
+            android:label="@string/setting_time_view"
+            android:parentActivityName=".MainActivityControllDevice" />
+        <activity
+            android:name=".ActivityStatistics"
+            android:label="@string/statistic_view"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

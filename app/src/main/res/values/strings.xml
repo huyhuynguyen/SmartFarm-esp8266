@@ -2,4 +2,5 @@
     <string name="app_name">Smart Farm</string>
     <string name="statistic_view">Chart</string>
     <string name="setting_time_view">Setting time</string>
+    <string name="control_device">Control devices</string>
 </resources>
