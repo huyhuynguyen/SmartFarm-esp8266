@@ -191,6 +191,9 @@ public class MainActivityControllDevice extends AppCompatActivity {
                         changeStateUp(btnServo, "SERVO ON");
                     }
 
+                    // manual
+                    switchCompat.setChecked(Boolean.parseBoolean(snapshot.getData().get("manual").toString()));
+
                     // time
                     servoTimeStart.setText(timeStartValue);
                     actionDevice(servoTimeStart.getText().toString(), btnServo, "SERVO ON", "up", servoRef);
@@ -249,9 +252,9 @@ public class MainActivityControllDevice extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 System.out.println("check switch");
                 boolean isManual = switchCompat.isChecked();
-                btnLight.setClickable(!isManual);
-                btnPump.setClickable(!isManual);
-                btnServo.setClickable(!isManual);
+                btnLight.setClickable(isManual);
+                btnPump.setClickable(isManual);
+                btnServo.setClickable(isManual);
 
                 pumpRef.update("manual", isManual);
                 ledRef.update("manual", isManual);
